@@ -82,18 +82,18 @@ int main(void)
     // char *a = pri(pd);
     // printf("%s", a);
 
-    struct bard willie;
-    struct bard *pt = &willie;
+    // struct bard willie;
+    // struct bard *pt = &willie;
 
-    scanf("%d", &willie.born);
-    scanf("%d", &(pt->born));
-    scanf("%s", willie.name.lname);
-    scanf("%s", pt->name.lname);
-    printf("%d\n", willie.born);
-    printf("%d\n", pt->born);
-    printf("%s\n", pt->name.lname);
+    // scanf("%d", &willie.born);
+    // scanf("%d", &(pt->born));
+    // scanf("%s", willie.name.lname);
+    // scanf("%s", pt->name.lname);
+    // printf("%d\n", willie.born);
+    // printf("%d\n", pt->born);
+    // printf("%s\n", pt->name.lname);
 
-    return 0;
+    // return 0;
 }
 
 int days(const struct MONTHS *months, int n)
