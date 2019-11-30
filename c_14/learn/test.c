@@ -1,8 +1,10 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define LEN 15
-#define ALEN 4
+#define ALEN 4  
 typedef struct len
 {
     float foclen;
@@ -38,38 +40,62 @@ struct bard
     int born;
     int died;
 };
+struct gas
+{
+    float distance;
+    float gals;
+    float mpg;
+};
+enum choices
+{
+    no,
+    yes,
+    maybe
+};
 char *pri(const struct bem *);
-int days(const struct MONTHS *months, int n);
+int days(const struct MONTHS *months, char n[]);
 void eatline(void);
 char *s_gets(char *, int n);
+struct gas gasFun(struct gas trip);
+char *(*fun)(char *, char);
 
 int main(void)
 {
-    // struct MONTHS year[12] = {
-    //     {"January", "Jan", 31, 1},
-    //     {"February", "Feb", 28, 2},
-    //     {"March", "Mar", 31, 3},
-    //     {"April", "Apr", 30, 4},
-    //     {"May", "May", 31, 5},
-    //     {"June", "Jun", 30, 6},
-    //     {"July", "Jul", 31, 7},
-    //     {"August", "Aug", 31, 8},
-    //     {"September", "Sep", 30, 9},
-    //     {"October", "Oct", 31, 10},
-    //     {"November", "Nov", 30, 11},
-    //     {"December", "Dec", 31, 12},
-    // };
-    // int n;
+    struct MONTHS year[12] = {
+        {"january", "Jan", 31, 1},
+        {"february", "Feb", 28, 2},
+        {"march", "Mar", 31, 3},
+        {"april", "Apr", 30, 4},
+        {"may", "May", 31, 5},
+        {"june", "Jun", 30, 6},
+        {"july", "Jul", 31, 7},
+        {"august", "Aug", 31, 8},
+        {"september", "Sep", 30, 9},
+        {"october", "Oct", 31, 10},
+        {"november", "Nov", 30, 11},
+        {"december", "Dec", 31, 12},
+    };
+    char n[LEN];
 
-    // puts("Please enter a number of the months");
-    // scanf("%d", &n);
-    // while(n> 12 || n< 1)
-    // {
-    //     puts("Please enter 1-12");
-    //     scanf("%d", &n);
-    // }
-    // int day = days(year, n);
-    // printf("This month has %d day", day);
+    puts("Please enter a name of the months");
+    while (1)
+    {
+        scanf("%s", n);
+        int i = 0;
+        while (*(n + i))
+        {
+            *(n + i) = tolower(*(n + i));
+            i++;
+        }
+        int day = days(year, n);
+        if (!day)
+        {
+            puts("Please enter a valid month");
+        } else {
+            printf("This month has %d day\n", day);
+            break;
+        }
+    }
 
     // struct bem deb = {
     //     6,
@@ -93,19 +119,28 @@ int main(void)
     // printf("%d\n", pt->born);
     // printf("%s\n", pt->name.lname);
 
-    // return 0;
+    // struct gas abc = {
+    //     10.2,
+    //     10.3,
+    //  };
+
+    // abc = gasFun(abc);
+    // printf("%.2f", abc.mpg);
+    system("pause");
+    return 0;
 }
 
-int days(const struct MONTHS *months, int n)
+int days(const struct MONTHS *months, char n[])
 {
-    if (n > 12 || n < 1)
+    for (int i = 0; i < 12; i++)
     {
-        return 0;
-    }
-    else
-    {
-        return months[n].Days;
-    }
+        if (!strcmp(n, months->name))
+        {
+            return months->Days;
+        };
+        months++;
+    };
+    return 0;
 }
 
 void eatline(void)
@@ -158,4 +193,10 @@ char *pri(const struct bem *ne)
     strcat(ab, ne->type);
 
     return ab;
+}
+
+struct gas gasFun(struct gas trip)
+{
+    trip.mpg = trip.distance + trip.gals;
+    return trip;
 }
